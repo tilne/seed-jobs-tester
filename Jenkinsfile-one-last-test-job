@@ -1,0 +1,34 @@
+#!/usr/bin/env groovy
+
+pipeline {
+  agent { label 'master' }
+  options {
+    disableConcurrentBuilds()
+    timestamps()
+  }
+  triggers {
+    cron('H/5 * * * *')
+  }
+  parameters {
+    booleanParam(name: 'DEBUG', defaultValue: false, description: '')
+    booleanParam(name: 'DRYRUN', defaultValue: false, description: '')
+  }
+  stages {
+    stage('Echo Params') {
+      steps {
+        echo "DEBUG: ${params.DEBUG}"
+        echo "DRYRUN: ${params.DRYRUN}"
+      }
+    }
+    stage('A second stage') {
+      steps {
+        echo 'This is a second stage'
+      }
+    }
+    stage('A third stage?!?!') {
+      steps {
+        echo 'Yes, a third stage'
+      }
+    }
+  }
+}
