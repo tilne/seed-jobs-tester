@@ -4,11 +4,10 @@ pipeline {
   agent { label 'master' }
   options {
     disableConcurrentBuilds()
-    preserveStashes()
     timestamps()
   }
   triggers {
-    cron('* * * * *')
+    cron('*/15 * * * *')
   }
   parameters {
     booleanParam(name: 'DEBUG', defaultValue: false, description: '')
