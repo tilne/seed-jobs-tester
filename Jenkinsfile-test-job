@@ -15,6 +15,18 @@ pipeline {
     booleanParam(name: 'DRYRUN', defaultValue: false, description: '')
   }
   stages {
+    stage('Stop if Seeding') {
+      steps {
+        script {
+          def triggeredBySeed = false
+          currentBuild.upstreamBuilds?.each { b ->
+            echo "Upstream build: ${b.getFullDisplayName()}"
+            triggeredBySeed = b.getFullDisplayName().split()[0] == "seed"
+          }
+          echo "Triggered by seed? ${triggeredBySeed}"
+        }
+      }
+    }
     stage('Echo Params') {
       steps {
         echo "DEBUG: ${params.DEBUG}"
