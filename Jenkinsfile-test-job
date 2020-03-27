@@ -8,7 +8,7 @@ pipeline {
     timestamps()
   }
   triggers {
-    cron('H/20 * * * *')
+    cron('H/30 * * * *')
   }
   parameters {
     booleanParam(name: 'DEBUG', defaultValue: false, description: '')
